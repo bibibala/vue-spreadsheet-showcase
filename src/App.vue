@@ -2,7 +2,7 @@
   <div
     ref="hotContainer"
     class="ht-theme-main-dark-auto"
-    style="height: 100vh; width: 100vw; border: 1px solid red"
+    style="height: 100vh; width: 100vw;"
   >
     <hot-table
       ref="hotTableRef"
