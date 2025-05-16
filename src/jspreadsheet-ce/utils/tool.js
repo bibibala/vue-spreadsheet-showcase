@@ -56,10 +56,10 @@ export const useTool = {
       if (rowIndex !== 1) {
         obj.insertRow(1, parseInt(rowIndex - 1), 1);
       } else {
-        console.info(`禁止在第一行进行插入操作`);
+        alert(`禁止在第一行进行插入操作`);
       }
     } else {
-      console.info(`请使用鼠标点击选择某一行,进行插入操作`);
+      alert(`请使用鼠标点击选择某一行,进行插入操作`);
     }
   },
   /**
@@ -82,13 +82,13 @@ export const useTool = {
           );
           bus.emit("update-rowIndex", 0);
         } else {
-          console.info(`已经是第一行，无法上移`);
+          alert(`已经是第一行，无法上移`);
         }
       } else {
-        console.info(`禁止与第一行数据进行上移操作`);
+        alert(`禁止与第一行数据进行上移操作`);
       }
     } else {
-      console.info(`请使用鼠标点击选择某一行,进行上移操作`);
+      alert(`请使用鼠标点击选择某一行,进行上移操作`);
     }
   },
   /**
@@ -112,13 +112,13 @@ export const useTool = {
           );
           bus.emit("update-rowIndex", 1);
         } else {
-          console.info(`已经是最后一行，无法下移`);
+          alert(`已经是最后一行，无法下移`);
         }
       } else {
-        console.info(`禁止在第一行进行下移操作`);
+        alert(`禁止在第一行进行下移操作`);
       }
     } else {
-      console.info(`请使用鼠标点击选择某一行,进行下移操作`);
+      alert(`请使用鼠标点击选择某一行,进行下移操作`);
     }
   },
   /**
@@ -138,7 +138,7 @@ export const useTool = {
       }
       bus.emit("update-rowIndex", 2);
     } else {
-      console.info(`请使用鼠标框选,进行删除操作`);
+      alert(`请使用鼠标框选,进行删除操作`);
     }
   },
   /**
