@@ -1,6 +1,0 @@
-name = "my-worker"
-type = "javascript"
-compatibility_date = "2025-05-16"
-
-[site]
-bucket = "./dist"
