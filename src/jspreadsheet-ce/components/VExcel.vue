@@ -7,11 +7,6 @@
       >
     </span>
     <br />
-    <span
-      >缺点：响应式比较差无法自动适配屏幕；合并单元格较为简单无法应对复杂需求。文档较为简单，需要翻阅源码</span
-    >
-    <br />
-    <span>优点：上手比较容易。</span>
     <div style="width: 100vw; height: 80vh; overflow: auto">
       <div id="container" @mouseleave.passive="getSelectedRows"></div>
     </div>
