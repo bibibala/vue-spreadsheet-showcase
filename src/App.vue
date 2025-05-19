@@ -4,6 +4,7 @@
       <button @click="goTo('/handsontable')">Handsontable</button>
       <button @click="goTo('/spreadsheet')">JSpreadsheet</button>
       <button @click="goTo('/ag-grid')">Ag-Grid</button>
+      <button @click="goTo('/univerjs')">univerJS</button>
     </div>
     <router-view></router-view>
   </div>

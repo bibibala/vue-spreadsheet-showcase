@@ -29,6 +29,13 @@ const router = createRouter({
         title: "jspreadsheet-ce",
       },
     },
+    {
+      path: "/univerjs",
+      component: () => import("@/univerjs"),
+      meta: {
+        title: "univerjs",
+      },
+    },
   ],
 });
 
