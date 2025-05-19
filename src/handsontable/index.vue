@@ -107,12 +107,4 @@ onMounted(async () => {
   overflow: hidden;
   border: 1px solid #e0e0e0;
 }
-
-:deep(.htCore) {
-  font-size: 14px;
-}
-
-:deep(.ht_master) {
-  border-radius: 6px;
-}
 </style>

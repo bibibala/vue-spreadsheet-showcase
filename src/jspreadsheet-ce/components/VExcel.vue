@@ -7,8 +7,13 @@
       >
     </span>
     <br />
-    <div style="width: 100vw; height: 80vh; overflow: auto">
-      <div id="container" @mouseleave.passive="getSelectedRows"></div>
+    <div style="width: 100vw; height: 60vh">
+      <!-- 必须要有一个固定的高度，这样超出高度的时候，表头才会固定-->
+      <div
+        id="container"
+        style="height: 95%"
+        @mouseleave.passive="getSelectedRows"
+      ></div>
     </div>
   </div>
 </template>

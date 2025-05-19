@@ -141,23 +141,10 @@ function getBoxSelection(da) {
 }
 
 .excel-container {
-  height: 60vh;
+  max-height: 60vh;
   border-radius: 6px;
-  overflow: hidden;
+  overflow: auto;
   border: 1px solid #e0e0e0;
-}
-
-:deep(.jexcel) {
-  font-size: 14px;
-  height: 100% !important;
-}
-
-:deep(.jexcel > thead > tr > td) {
-  background-color: #f8f9fa;
-  font-weight: 500;
-}
-
-:deep(.jexcel > tbody > tr > td) {
-  padding: 8px;
+  position: relative;
 }
 </style>

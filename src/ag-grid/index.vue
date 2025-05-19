@@ -5,12 +5,12 @@
     >
     <div class="grid-container">
       <ag-grid-vue
+        style="width: 100%; height: 100%"
         :rowData="rowData"
         :columnDefs="colDefs"
         :defaultColDef="defaultColDef"
         :animateRows="true"
         @grid-ready="onGridReady"
-        class="ag-theme-alpine"
       ></ag-grid-vue>
     </div>
   </div>
@@ -117,27 +117,5 @@ function onGridReady(data) {
   border-radius: 6px;
   overflow: hidden;
   border: 1px solid #e0e0e0;
-}
-
-:deep(.ag-theme-alpine) {
-  height: 100%;
-  --ag-header-height: 48px;
-  --ag-header-foreground-color: #2c3e50;
-  --ag-header-background-color: #f8f9fa;
-  --ag-odd-row-background-color: #ffffff;
-  --ag-row-hover-color: #f0f2f5;
-  --ag-selected-row-background-color: #e8f5e9;
-  --ag-font-size: 14px;
-  --ag-font-family:
-    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
-    Arial, sans-serif;
-}
-
-:deep(.ag-header-cell) {
-  font-weight: 500;
-}
-
-:deep(.ag-cell) {
-  padding: 8px;
 }
 </style>
