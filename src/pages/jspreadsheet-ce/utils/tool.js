@@ -1,6 +1,6 @@
 import { bus } from "@/utils/mitt.js";
 
-let color = "#ffff54";
+let color = "#42b983";
 
 const column = [
   "A",
