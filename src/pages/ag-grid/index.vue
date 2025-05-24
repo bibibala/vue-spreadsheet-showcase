@@ -1,7 +1,7 @@
 <template>
   <div class="ag-grid-container">
     <a class="table-link" href="https://www.ag-grid.com/"
-      >AgGrid Documentation</a
+      >AgGrid Documentation 适合展示数据，没有excel风格的直接编辑方式</a
     >
     <div class="grid-container">
       <ag-grid-vue

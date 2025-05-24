@@ -1,22 +1,34 @@
 <template>
   <div>
     <div class="btn-group">
-      <button @click="goTo('/handsontable')">Handsontable</button>
-      <button @click="goTo('/spreadsheet')">JSpreadsheet</button>
-      <button @click="goTo('/ag-grid')">Ag-Grid</button>
-      <button @click="goTo('/univerjs')">univerJS</button>
+      <button
+        v-for="route in routes"
+        :key="route.path"
+        @click="goTo(route.path)"
+        :class="{ active: currentPath === route.path }"
+      >
+        {{ route.meta.title }}
+      </button>
     </div>
     <router-view></router-view>
   </div>
 </template>
 
 <script setup>
-import { useRouter } from "vue-router";
+import { useRouter, useRoute } from "vue-router";
+import { computed } from "vue";
 
 const router = useRouter();
+const route = useRoute();
 
-function goTo(name) {
-  router.push({ path: name });
+const routes = computed(() => {
+  return router.options.routes.filter((r) => r.path !== "/");
+});
+
+const currentPath = computed(() => route.path);
+
+function goTo(path) {
+  router.push({ path });
 }
 </script>
 
@@ -56,5 +68,16 @@ button:active {
 
 button:last-child {
   margin-right: 0;
+}
+
+button.active {
+  background: #42b983;
+  color: white;
+  border-color: #42b983;
+}
+
+button.active:hover {
+  background: #3aa876;
+  border-color: #3aa876;
 }
 </style>

@@ -1,8 +1,8 @@
 <script setup>
 import { bus } from "@/utils/mitt.js";
 import { onMounted, onUnmounted, ref } from "vue";
-import VExcel from "@/jspreadsheet-ce/components/VExcel.vue";
-import { useTool } from "@/jspreadsheet-ce/utils/tool.js";
+import VExcel from "@/pages/jspreadsheet-ce/components/VExcel.vue";
+import { useTool } from "@/pages/jspreadsheet-ce/utils/tool.js";
 
 const header = [
   { type: "text", title: "PUBG", name: "PUBG", width: "250", readOnly: true },

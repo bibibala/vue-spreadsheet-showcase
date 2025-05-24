@@ -9,14 +9,14 @@ const router = createRouter({
     },
     {
       path: "/handsontable",
-      component: () => import("@/handsontable"),
+      component: () => import("@/pages/handsontable"),
       meta: {
         title: "handsontable",
       },
     },
     {
       path: "/ag-grid",
-      component: () => import("@/ag-grid"),
+      component: () => import("@/pages/ag-grid"),
       meta: {
         title: "ag-gird",
       },
@@ -24,16 +24,23 @@ const router = createRouter({
 
     {
       path: "/spreadsheet",
-      component: () => import("@/jspreadsheet-ce"),
+      component: () => import("@/pages/jspreadsheet-ce"),
       meta: {
         title: "jspreadsheet-ce",
       },
     },
     {
       path: "/univerjs",
-      component: () => import("@/univerjs"),
+      component: () => import("@/pages/univerjs"),
       meta: {
         title: "univerjs",
+      },
+    },
+    {
+      path: "/microsoft",
+      component: () => import("@/pages/microsoft"),
+      meta: {
+        title: "microsoft",
       },
     },
   ],

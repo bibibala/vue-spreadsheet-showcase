@@ -1,8 +1,10 @@
 <template>
   <div style="padding: 10px 10px">
-    <span
+    <span class="table-link"
       >最新版本v5.0.1写法有很大不同。详情请看
-      <a href="https://bossanova.uk/jspreadsheet/docs/upgrade-from-v4-to-v5"
+      <a
+        class="table-link"
+        href="https://bossanova.uk/jspreadsheet/docs/upgrade-from-v4-to-v5"
         >JSpreadsheet-ce</a
       >
     </span>
@@ -303,5 +305,13 @@ function loadSheet() {
 <style scoped>
 ::v-deep(.jexcel .highlight-selected) {
   background-color: yellow;
+}
+
+.table-link {
+  color: black;
+}
+
+.table-link:hover {
+  color: #42b983;
 }
 </style>
