@@ -2,7 +2,8 @@
 // https://view.officeapps.live.com/op/view.aspx?src= 有工具栏
 // https://view.officeapps.live.com/op/embed.aspx?src= 没有工具栏
 // excel 的url，https可以直接访问的链接
-const url = "";
+const url =
+  "https://fs-im-kefu.7moor-fs1.com/ly/4d2c3f00-7d4c-11e5-af15-41bf63ae4ea0/1748070275077/工作簿2 (1).xlsx";
 </script>
 
 <template>
@@ -11,8 +12,11 @@ const url = "";
       class="table-link"
       href="https://learn.microsoft.com/zh-cn/officeonlineserver/deploy-office-online-server"
     >
-      Microsoft Office Online Server Documentation 可离线部署，适合在线展示
+      Microsoft Office Online Server Documentation；
     </a>
+    <a href="https://up.ly93.cc/" class="table-link"
+      >https://up.ly93.cc/（直链生成）</a
+    >
     <div class="iframe-container">
       <iframe
         sandbox="allow-scripts allow-same-origin allow-forms allow-popups"

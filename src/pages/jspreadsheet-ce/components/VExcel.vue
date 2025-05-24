@@ -308,7 +308,11 @@ function loadSheet() {
 }
 
 .table-link {
-  color: black;
+  margin-bottom: 16px;
+  color: #2c3e50;
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.2s ease;
 }
 
 .table-link:hover {
