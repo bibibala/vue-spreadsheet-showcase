@@ -6,7 +6,8 @@
 - ✅ [**JSpreadsheet**](https://jspreadsheet.com/) - 轻量级的电子表格组件
 - ✅ [**Ag-Grid**](https://www.ag-grid.com/) - 企业级数据表格组件
 - ✅ [**UniverJS**](https://univer.ai/) - 开源的在线电子表格解决方案
-- ✅ [**Microsoft Office Online**](https://learn.microsoft.com/zh-cn/officeonlineserver/deploy-office-online-server) - 微软在线文档查看器
+- ✅ [**Microsoft Office Online**](https://learn.microsoft.com/zh-cn/officeonlineserver/deploy-office-online-server) -
+  微软在线文档查看器
 
 ## 🚀 快速开始
 
@@ -49,7 +50,3 @@ src/
 - [Ag-Grid 文档](https://www.ag-grid.com/documentation/)
 - [UniverJS 文档](https://docs.univer.ai/)
 - [Microsoft Office Online Server 文档](https://learn.microsoft.com/zh-cn/officeonlineserver/deploy-office-online-server)
-
-## �� 开源协议
-
-MIT License

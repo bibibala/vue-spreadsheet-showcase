@@ -304,7 +304,7 @@ function loadSheet() {
 
 <style scoped>
 ::v-deep(.jexcel .highlight-selected) {
-  background-color: yellow;
+  background-color: #42b983;
 }
 
 .table-link {
