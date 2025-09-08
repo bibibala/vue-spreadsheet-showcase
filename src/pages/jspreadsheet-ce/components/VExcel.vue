@@ -23,8 +23,10 @@
 <script setup>
 import "jsuites/dist/jsuites.css";
 import JExcel from "jspreadsheet-ce";
+import JSuites from "jsuites";
 import "jspreadsheet-ce/dist/jspreadsheet.css";
 import { onMounted, toRefs, ref } from "vue";
+import { createContextMenu } from "@/pages/jspreadsheet-ce/utils/tool.js";
 
 let sheet = ref(null);
 
@@ -36,10 +38,6 @@ const props = defineProps({
   minDimensions: {
     type: Array,
     required: true,
-  },
-  search: {
-    type: Boolean,
-    default: false,
   },
   pagination: {
     type: Number,
@@ -61,18 +59,6 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  columnDrag: {
-    type: Boolean,
-    default: false,
-  },
-  rowResize: {
-    type: Boolean,
-    default: true,
-  },
-  csvHeaders: {
-    type: Boolean,
-    default: true,
-  },
   freezeColumns: {
     type: Number,
     default: 0,
@@ -82,6 +68,31 @@ const props = defineProps({
   },
   tableWidth: {
     default: "100%",
+  },
+  // 新增操作权限
+  allowClearColumn: {
+    type: Boolean,
+    default: true,
+  },
+  allowInsertRowBefore: {
+    type: Boolean,
+    default: true,
+  },
+  allowInsertRowAfter: {
+    type: Boolean,
+    default: true,
+  },
+  allowClearSelection: {
+    type: Boolean,
+    default: true,
+  },
+  allowClearCell: {
+    type: Boolean,
+    default: true,
+  },
+  allowDeleteRow: {
+    type: Boolean,
+    default: true,
   },
 });
 const emits = defineEmits([
@@ -104,6 +115,30 @@ onMounted(() => {
   loadSheet();
 });
 
+JSuites.setDictionary({
+  January: "一月",
+  February: "二月",
+  March: "三月",
+  April: "四月",
+  June: "六月",
+  July: "七月",
+  August: "八月",
+  September: "九月",
+  October: "十月",
+  November: "十一月",
+  December: "十二月",
+  Reset: "重置",
+  Done: "完成",
+  Update: "更新",
+  Sunday: "日",
+  Monday: "一",
+  Tuesday: "二",
+  Wednesday: "三",
+  Thursday: "四",
+  Friday: "五",
+  Saturday: "六",
+});
+
 function getSelectedRows() {
   let index = [];
   const selected = sheet.value.getSelectedRows();
@@ -117,16 +152,12 @@ function getSelectedRows() {
 
 function loadSheet() {
   const {
-    search,
     columns,
-    columnDrag,
     freezeColumns,
     pagination,
     lazyLoad,
-    csvHeaders,
     fullScreen,
     minDimensions,
-    rowResize,
     columnSorting,
     tableWidth,
     tableHeight,
@@ -136,14 +167,10 @@ function loadSheet() {
   const dom = document.getElementById("container");
   sheet.value = JExcel(dom, {
     columns: columns.value,
-    search: search.value,
-    rowResize: rowResize.value,
     lazyLoading: lazyLoad.value,
     loadingSpin: lazyLoad.value,
-    csvHeaders: csvHeaders.value,
     tableOverflow: lazyLoad.value,
     fullscreen: fullScreen.value,
-    columnDrag: columnDrag.value,
     pagination: pagination.value,
     paginationOptions: !lazyLoad.value ? paginationOptions.value : [],
     minDimensions: minDimensions.value,
@@ -199,119 +226,7 @@ function loadSheet() {
         cellName,
       });
     },
-
-    contextMenu: (obj, x, y) => {
-      let items = [];
-      const column = [
-        "A",
-        "B",
-        "C",
-        "D",
-        "E",
-        "F",
-        "G",
-        "H",
-        "I",
-        "J",
-        "K",
-        "L",
-        "M",
-        "N",
-        "O",
-        "P",
-        "Q",
-        "R",
-        "S",
-        "T",
-        "U",
-        "V",
-        "W",
-        "X",
-        "Y",
-        "Z",
-      ];
-      if (!y) {
-        items.push({
-          title: "清空整列",
-          onclick: () => {
-            let length = obj.getColumnData(x).length;
-            for (let i = 0; i <= length; i++) {
-              obj.setValue(column[x] + i, "");
-            }
-          },
-        });
-      } else {
-        if (obj.options.allowInsertRow === true) {
-          items.push({
-            title: "之前插入行",
-            onclick: () => {
-              if (y !== "0") {
-                obj.insertRow(1, parseInt(y), 1);
-                emits("insertBefore", { obj, y });
-              } else {
-                // useToast("info", `禁止在第一行进行插入操作`);
-              }
-            },
-          });
-          items.push({
-            title: "之后插入行",
-            onclick: () => {
-              obj.insertRow(1, parseInt(y));
-              emits("insertAfter", { obj, y });
-            },
-          });
-        }
-        if (obj.options.allowDeleteRow) {
-          let index = [];
-          obj.getSelectedRows().forEach((item) => {
-            index.push(item.rowIndex);
-          });
-          if (x) {
-            if (index.length > 1 || obj.getHighlighted().length > 1) {
-              items.push({ type: "line" });
-              items.push({
-                title: "清空框选",
-                onclick: () => {
-                  obj.getHighlighted().forEach((item) => {
-                    obj.setValue(
-                      column[item.dataset.x] + (Number(item.dataset.y) + 1),
-                      "",
-                    );
-                  });
-                },
-              });
-            } else {
-              items.push({
-                title: "清空单元格",
-                onclick: () => {
-                  // 如果为只读的不做任何操作
-                  let readOnly = obj.isReadOnly(column[x] + Number(y));
-                  if (readOnly === true) {
-                    // useToast("info", "该单元格为只读，不可编辑");
-                  } else {
-                    obj.setValue(column[x] + (Number(y) + 1), "");
-                  }
-                },
-              });
-            }
-          } else {
-            items.push({
-              title: index.length > 1 ? "多项删除" : "删除整行",
-              onclick: () => {
-                obj.deleteRow();
-                let row = obj.getData();
-                if (row.length === 1) {
-                  column.forEach((item) => {
-                    obj.setValue(item + "0", "", true);
-                  });
-                }
-              },
-            });
-          }
-        }
-      }
-      return items;
-    },
+    contextMenu: createContextMenu({ props, emits }),
   });
 }
 </script>

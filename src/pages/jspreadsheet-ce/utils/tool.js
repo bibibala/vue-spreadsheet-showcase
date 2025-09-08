@@ -1,4 +1,5 @@
 import { bus } from "@/utils/mitt.js";
+import JExcel from "jspreadsheet-ce";
 
 let color = "#42b983";
 
@@ -149,4 +150,128 @@ export const useTool = {
   insetRowLast(instance, length) {
     instance.insertRow(1, length);
   },
+  /**
+   *
+   * 重写 JExcel 方法
+   * @param instance{object}
+   * @param rowNumber{number}
+   * @param data{array}
+   */
+  setRowData(instance, rowNumber, data) {
+    const { setValue, headers } = instance;
+    for (let i = 0; i < headers.length; i++) {
+      let columnName = JExcel.getColumnNameFromId([i, rowNumber]);
+      if (data[i] != null) {
+        setValue(columnName, data[i], true);
+      }
+    }
+  },
 };
+
+/**
+ * 创建 JExcel 的 contextMenu
+ * @param {Object} options
+ * @param {Object} options.props - 组件传入的 props
+ * @param {Function} options.emits - 组件 emits 函数
+ * @returns {Function} contextMenu 回调
+ */
+export function createContextMenu({ props, emits }) {
+  return (obj, x, y) => {
+    let items = [];
+
+    if (!y) {
+      // 清空整列
+      if (props.allowClearColumn) {
+        items.push({
+          title: "清空整列",
+          onclick: () => {
+            let length = obj.getColumnData(x).length;
+            for (let i = 0; i <= length; i++) {
+              obj.setValue(column[x] + i, "");
+            }
+          },
+        });
+      }
+    } else {
+      if (obj.options.allowInsertRow === true) {
+        // 之前插入行
+        if (props.allowInsertRowBefore) {
+          items.push({
+            title: "之前插入行",
+            onclick: () => {
+              if (y !== "0") {
+                obj.insertRow(1, parseInt(y), 1);
+                emits("insertBefore", { obj, y });
+              } else {
+                alert("禁止在第一行进行插入操作");
+              }
+            },
+          });
+        }
+        // 之后插入行
+        if (props.allowInsertRowAfter) {
+          items.push({
+            title: "之后插入行",
+            onclick: () => {
+              obj.insertRow(1, parseInt(y));
+              emits("insertAfter", { obj, y });
+            },
+          });
+        }
+      }
+
+      if (obj.options.allowDeleteRow) {
+        let index = [];
+        obj.getSelectedRows().forEach((item) => {
+          index.push(item.rowIndex);
+        });
+
+        if (x) {
+          if (index.length > 1 || obj.getHighlighted().length > 1) {
+            if (props.allowInsertRowAfter) items.push({ type: "line" });
+            if (props.allowClearColumn) {
+              items.push({
+                title: "清空框选",
+                onclick: () => {
+                  obj.getHighlighted().forEach((item) => {
+                    obj.setValue(
+                      column[item.dataset.x] + (Number(item.dataset.y) + 1),
+                      "",
+                    );
+                  });
+                },
+              });
+            }
+          } else if (props.allowClearCell) {
+            items.push({
+              title: "清空单元格",
+              onclick: () => {
+                let readOnly = obj.isReadOnly(column[x] + Number(y));
+                if (readOnly === true) {
+                  alert("该单元格为只读，不可编辑");
+                } else {
+                  obj.setValue(column[x] + (Number(y) + 1), "");
+                }
+              },
+            });
+          }
+        } else if (props.allowDeleteRow) {
+          items.push({
+            title: index.length > 1 ? "多项删除" : "删除整行",
+            onclick: () => {
+              obj.deleteRow();
+              let row = obj.getData();
+              if (row.length === 1) {
+                column.forEach((item) => {
+                  obj.setValue(item + "0", "", true);
+                });
+              }
+            },
+          });
+        }
+      }
+    }
+
+    return items;
+  };
+}
