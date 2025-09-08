@@ -157,6 +157,20 @@ function loadSheet() {
     onload: (instance) => {
       emits("onload", instance);
     },
+    // 处理粘贴板的数据，去除空格
+    onbeforepaste: (instance, copiedText) => {
+      let cleanedText = copiedText.trim();
+      cleanedText = cleanedText
+        .split("\n")
+        .map((line) =>
+          line
+            .split("\t")
+            .map((cell) => cell.trim())
+            .join("\t"),
+        )
+        .join("\n");
+      return cleanedText;
+    },
     onpaste: (instance, value) => {
       // value 粘贴的值
       emits("paste", { instance, value });
