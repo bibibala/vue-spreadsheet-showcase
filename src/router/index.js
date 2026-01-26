@@ -30,6 +30,13 @@ const router = createRouter({
       },
     },
     {
+      path: "/lucksheet",
+      component: () => import("@/pages/lucksheet"),
+      meta: {
+        title: "lucksheet",
+      },
+    },
+    {
       path: "/univerjs",
       component: () => import("@/pages/univerjs"),
       meta: {
