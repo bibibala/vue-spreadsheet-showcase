@@ -5,6 +5,7 @@
 - ✅ [**Handsontable**](https://handsontable.com/) - 功能强大的电子表格组件
 - ✅ [**JSpreadsheet**](https://jspreadsheet.com/) - 轻量级的电子表格组件
 - ✅ [**Ag-Grid**](https://www.ag-grid.com/) - 企业级数据表格组件
+- ✅ [**Lucksheet**](https://github.com/dream-num/Luckysheet/) - 类Excel的交互式表格组件
 - ✅ [**UniverJS**](https://univer.ai/) - 开源的在线电子表格解决方案
 - ✅ [**Microsoft Office Online**](https://learn.microsoft.com/zh-cn/officeonlineserver/deploy-office-online-server) -
   微软在线文档查看器
@@ -36,6 +37,7 @@ src/
 │   ├── handsontable/    # Handsontable 示例
 │   ├── jspreadsheet-ce/ # JSpreadsheet 示例
 │   ├── ag-grid/         # Ag-Grid 示例
+│   ├── lucksheet/       # Lucksheet 示例
 │   ├── univerjs/        # UniverJS 示例
 │   └── microsoft/       # Microsoft Office Online 示例
 ├── router/          # 路由配置
