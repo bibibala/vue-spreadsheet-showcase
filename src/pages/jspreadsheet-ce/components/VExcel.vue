@@ -1,21 +1,11 @@
 <template>
-  <div style="padding: 10px 10px">
-    <span class="table-link"
-      >最新版本v5.0.1写法有很大不同。详情请看
-      <a
-        class="table-link"
-        href="https://bossanova.uk/jspreadsheet/docs/upgrade-from-v4-to-v5"
-        >JSpreadsheet-ce</a
-      >
-    </span>
-    <br />
-    <div style="width: 100vw; height: 60vh">
-      <!-- 必须要有一个固定的高度，这样超出高度的时候，表头才会固定-->
+  <div>
+    <div style="width: 100%; height: 60vh">
       <div
         id="container"
         style="height: 95%"
         @mouseleave.passive="getSelectedRows"
-      ></div>
+      />
     </div>
   </div>
 </template>
@@ -69,7 +59,6 @@ const props = defineProps({
   tableWidth: {
     default: "100%",
   },
-  // 新增操作权限
   allowClearColumn: {
     type: Boolean,
     default: true,
@@ -184,7 +173,6 @@ function loadSheet() {
     onload: (instance) => {
       emits("onload", instance);
     },
-    // 处理粘贴板的数据，去除空格
     onbeforepaste: (instance, copiedText) => {
       let cleanedText = copiedText.trim();
       cleanedText = cleanedText
@@ -199,13 +187,11 @@ function loadSheet() {
       return cleanedText;
     },
     onpaste: (instance, value) => {
-      // value 粘贴的值
       emits("paste", { instance, value });
     },
     onblur: (instance) => {
       emits("blur", instance);
     },
-    // After a column value is changed.
     onchange: (instance, cell, c, r, value) => {
       emits("onchange", { instance, cell, c, r, value });
     },
@@ -234,17 +220,5 @@ function loadSheet() {
 <style scoped>
 ::v-deep(.jexcel .highlight-selected) {
   background-color: #42b983;
-}
-
-.table-link {
-  margin-bottom: 16px;
-  color: #2c3e50;
-  text-decoration: none;
-  font-size: 14px;
-  transition: color 0.2s ease;
-}
-
-.table-link:hover {
-  color: #42b983;
 }
 </style>

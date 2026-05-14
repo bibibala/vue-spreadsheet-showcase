@@ -85,13 +85,6 @@ function getBoxSelection(da) {
   boxRow.value = da;
 }
 
-/**
- *
- *
- * @description 表格的更新操作
- *
- */
-
 function updateTable(obj) {
   const readOnlyColumns = [1];
   if (readOnlyColumns.includes(obj.col)) {
@@ -99,75 +92,25 @@ function updateTable(obj) {
   }
 }
 
-/**
- *
- * @description 填充数据
- *
- */
 function setData() {
   sheet.value.sheet.setData([
     { PUBG: "9999", LOL: "4344", CSGO: "2344", time: "2024-03-1 08:22:22" },
   ]);
 }
 
-/**
- *
- * @description 动态设置列的读写状态
- *
- */
 function hideNameColumn() {
   header.value[0].type = "text";
   header.value[1].type = "hidden";
-  // 通过设置两列同样的title的方式，实现编辑和只读的切换
-  // 即使通过敲击回车的方式新增一行，列的状态仍是当前设置的状态
-  // 列的name属性需要和另一列保持不同，否则会无法拿到输入的值会一直为空
-  /**
-   *
-   *
-   * [
-   *   {
-   *     "PUBG": "",
-   *     "LOL": "",
-   *     "CSGO": ""
-   *   }
-   * ]
-   *
-   * 正确的
-   *
-   * [
-   *   {
-   *     "PUBGS": "",
-   *     "PUBG": "",
-   *     "LOL": "",
-   *     "CSGO": ""
-   *   }
-   * ]
-   *
-   */
-  const { refresh, getJson } = sheet.value.sheet;
+  const { refresh } = sheet.value.sheet;
   refresh();
-  console.log(getJson());
 }
 
 function showNameColumn() {
   header.value[0].type = "hidden";
   header.value[1].type = "text";
-  const { refresh, getJson } = sheet.value.sheet;
+  const { refresh } = sheet.value.sheet;
   refresh();
-  console.log(getJson());
 }
-
-/**
- *
- * setStyle
- * @description 修改B2单元格的背景色
- * @description C2 意思是 第三列。第二行，因为上面已经隐藏了一列，所以也是包含的
- * @description background-color  也可以是字体颜色，详情看源代码
- *
- * setReadOnly
- * @description 坐标是从 0 开始
- * @description true 代表设置为只读  false 代表取消只读的状态
- */
 
 function setBgColor() {
   sheet.value.sheet.setReadOnly([2, 1], true);
@@ -176,23 +119,27 @@ function setBgColor() {
 </script>
 
 <template>
-  <div class="spreadsheet-container">
-    <div class="button-group">
-      <button @click="moveUp" class="action-button">上移</button>
-      <button @click="moveDown" class="action-button">下移</button>
-      <button @click="removeSelected" class="action-button">删除</button>
-      <button @click="insertRow" class="action-button">插入</button>
-      <button @click="setData" class="action-button">填充数据</button>
-      <button @click="hideNameColumn" class="action-button">
-        动态设置（可写）
-      </button>
-      <button @click="showNameColumn" class="action-button">
-        动态设置（只读）
-      </button>
-
-      <button @click="setBgColor" class="action-button">修改B2背景色</button>
+  <div class="page-container">
+    <div class="page-header">
+      <span class="page-title">JSpreadsheet CE</span>
+      <a
+        class="page-link"
+        href="https://bossanova.uk/jspreadsheet/docs/upgrade-from-v4-to-v5"
+      >
+        Documentation — 注意 v5 写法有较大不同
+      </a>
     </div>
-    <div class="excel-container">
+    <div class="btn-group">
+      <button class="btn" @click="moveUp">上移</button>
+      <button class="btn" @click="moveDown">下移</button>
+      <button class="btn" @click="removeSelected">删除</button>
+      <button class="btn" @click="insertRow">插入</button>
+      <button class="btn" @click="setData">填充数据</button>
+      <button class="btn" @click="hideNameColumn">动态设置（可写）</button>
+      <button class="btn" @click="showNameColumn">动态设置（只读）</button>
+      <button class="btn" @click="setBgColor">修改 B2 背景色</button>
+    </div>
+    <div class="table-wrapper">
       <VExcel
         ref="sheet"
         :min-dimensions="[4, 4]"
@@ -204,49 +151,3 @@ function setBgColor() {
     </div>
   </div>
 </template>
-
-<style scoped>
-.spreadsheet-container {
-  padding: 20px;
-  background: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-}
-
-.button-group {
-  margin-bottom: 16px;
-  display: flex;
-  gap: 8px;
-}
-
-.action-button {
-  padding: 8px 16px;
-  font-size: 14px;
-  color: #2c3e50;
-  background: white;
-  border: 1px solid #e0e0e0;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.action-button:hover {
-  background: #f0f2f5;
-  border-color: #d0d0d0;
-  transform: translateY(-1px);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.action-button:active {
-  transform: translateY(0);
-  box-shadow: none;
-}
-
-.excel-container {
-  max-height: 60vh;
-  border-radius: 6px;
-  overflow: auto;
-  border: 1px solid #e0e0e0;
-  position: relative;
-}
-</style>
